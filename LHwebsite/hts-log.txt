@@ -1,0 +1,15 @@
+HTTrack3.49-2 launched on Fri, 21 Nov 2025 10:39:23 at www.louishyman.com
+(winhttrack www.louishyman.com -W -O "/Users/louishyman/coding/louis_hyman/LHwebsite" -%v )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+10:39:24	Warning: 	Moved Permanently for www.louishyman.com/robots.txt
+10:39:24	Warning: 	Redirected link is identical because of 'URL Hack' option: www.louishyman.com/robots.txt and https://www.louishyman.com/robots.txt
+10:39:24	Warning: 	Warning moved treated for www.louishyman.com/robots.txt (real one is https://www.louishyman.com/robots.txt)
+10:39:25	Warning: 	Moved Permanently for www.louishyman.com/
+10:39:25	Warning: 	Redirected link is identical because of 'URL Hack' option: www.louishyman.com/ and https://www.louishyman.com/
+10:39:25	Warning: 	File has moved from www.louishyman.com/ to https://www.louishyman.com/
+10:39:25	Warning: 	No data seems to have been transferred during this session! : restoring previous one!

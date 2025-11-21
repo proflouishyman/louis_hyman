@@ -1,0 +1,673 @@
+/************* DO NOT ALTER ANYTHING BELOW THIS LINE ! **************/
+    if(typeof s === 'object') {
+    /*
+     * Plugin: manageVars v1.5 (requires s.pt utility if using AppMeasurement)
+     */
+    s.manageVars=new Function("c","l","f",""
+    +"var s=this,vl,la,vla;l=l?l:'';f=f?f:1;if(!s[c])return false;vl='pag"
+    +"eName,purchaseID,channel,server,pageType,campaign,state,zip,events,"
+    +"products,transactionID';for(var n=1;n<76;n++)vl+=',prop'+n+',eVar'+"
+    +"n;for(n=1;n<6;n++)vl+=',hier'+n;for(n=1;n<4;n++)vl+=',list'+n;for(n"
+    +" in s.contextData)vl+=',contextData.'+n;if(l&&(f==1||f==2)){if(f==1"
+    +")vl=l.replace('[\\'','.').replace('\\']','');if(f==2){la=l.split(',"
+    +"');vla=vl.split(',');vl='';for(x in la){if(la[x].indexOf('contextDa"
+    +"ta')>-1){lax=la[x].split('\\'');la[x]='contextData.'+lax[1];}for(y "
+    +"in vla){if(la[x]==vla[y]){vla[y]='';}}}for(y in vla){vl+=vla[y]?','"
+    +"+vla[y]:'';}}s.pt(vl,',',c,0);return true;}else if(l==''&&f==1){s.p"
+    +"t(vl,',',c,0);return true;}else return false;");
+    s.clearVars=new Function("t",""
+    +"var s=this;if(t.indexOf('contextData')==-1)s[t]='';else if(t.indexO"
+    +"f('contextData')>-1){var c=t.substring(t.indexOf('.')+1);s.contextD"
+    +"ata[c]='';}");
+    s.lowercaseVars=new Function("t",""
+    +"var s=this;if(t!='events'&&t.indexOf('contextData')==-1&&s[t]){s[t]"
+    +"=s[t].toString();if(s[t].indexOf('D=')!=0){s[t]=s[t].toLowerCase();"
+    +"}}else if(t.indexOf('contextData')>-1){var c=t.substring(t.indexOf("
+    +"'.')+1);if(s.contextData[c]){s.contextData[c]=s.contextData[c].toSt"
+    +"ring();s.contextData[c]=s.contextData[c].toLowerCase();}}");
+    /*
+     * s.pt utility (runs function f against variables in x)
+     */
+    s.pt=new Function("x","d","f","a",""
+    +"var s=this,t=x,z=0,y,r;while(t){y=t.indexOf(d);y=y<0?t.length:y;t=t"
+    +".substring(0,y);r=s[f](t,a);if(r)return r;z+=y+d.length;t=x.substri"
+    +"ng(z,x.length);t=z<x.length?t:''}return'';");
+    };
+
+function populateDefaultMetrics(obj, linkTrkVars) {
+    linkTrkVars.push("contextData.tve.brand");
+    linkTrkVars.push("contextData.tve.airdate");
+    linkTrkVars.push("contextData.tve.videoprogram");
+    linkTrkVars.push("contextData.tve.videotitle");
+    linkTrkVars.push("contextData.tve.videocontent");
+    linkTrkVars.push("contextData.tve.videoguid");
+    linkTrkVars.push("contextData.tve.videodaypart");
+    linkTrkVars.push("contextData.tve.minute");
+    linkTrkVars.push("contextData.tve.hour");
+    linkTrkVars.push("contextData.tve.day");
+    linkTrkVars.push("contextData.tve.date");
+    linkTrkVars.push("contextData.tve.playertech");
+    linkTrkVars.push("contextData.tve.platform");
+    linkTrkVars.push("contextData.tve.network");
+    linkTrkVars.push("contextData.tve.videoplayertype");
+    linkTrkVars.push("contextData.tve.videoscreen");
+    linkTrkVars.push("contextData.tve.videostatus");
+    linkTrkVars.push("contextData.tve.playerurl");
+    linkTrkVars.push("contextData.tve.playername");
+    linkTrkVars.push("contextData.tve.length");
+    linkTrkVars.push("contextData.tve.initiate");
+    linkTrkVars.push("contextData.tve.additionalsections");
+    linkTrkVars.push("contextData.tve.creator");
+    linkTrkVars.push("contextData.tve.creatoroverwrite");
+		linkTrkVars.push("contextData.tve.team");
+		linkTrkVars.push("contextData.tve.project");
+		linkTrkVars.push("contextData.tve.source");
+		linkTrkVars.push("contextData.tve.usagerule");
+		linkTrkVars.push("contextData.tve.hierarchy");
+		linkTrkVars.push("contextData.tve.hier1");
+		linkTrkVars.push("contextData.tve.tags");
+    linkTrkVars.push("contextData.tve.pev2");
+    s.contextData['tve.brand'] = (obj.brand == undefined) ? ("NA") : (obj.brand);
+    s.contextData['tve.airdate'] = (obj.airDate == undefined) ? ("NA") : (obj.airDate);
+    s.contextData['tve.videoprogram'] = (obj.section == undefined) ? ("NA") : (obj.section.tagNameFormattedFull);
+    s.contextData['tve.videotitle'] = (obj.title == undefined) ? ("NA") : (obj.title);
+    s.contextData['tve.videocontent'] = (obj.subType == undefined) ? ("NA") : (obj.subType);
+    s.contextData['tve.videoguid'] = (obj.vcpsId == undefined) ? ("NA") : (obj.vcpsId);
+    s.contextData['tve.videodaypart'] = (obj.dayPart == undefined) ? ("NA") : (obj.dayPart);
+    s.contextData['tve.minute'] = (obj.minute == undefined) ? ("NA") : (obj.minute);
+    s.contextData['tve.hour'] = (obj.hour == undefined) ? ("NA") : (obj.hour);
+    s.contextData['tve.day'] = (obj.day == undefined) ? ("NA") : (obj.day);
+    s.contextData['tve.date'] = (obj.date == undefined) ? ("NA") : (obj.date);
+    s.contextData['tve.playertech'] = (obj.playerTech == undefined) ? ("NA") : (obj.playerTech);
+    s.contextData['tve.platform'] = (obj.platform == undefined) ? ("NA") : (obj.platform);
+    s.contextData['tve.network'] = (obj.network == undefined) ? ("NA") : (obj.network);
+    s.contextData['tve.videoplayertype'] = (obj.playerType == undefined) ? ("NA") : (obj.playerType);
+    s.contextData['tve.videoscreen'] = (obj.videoScreen == undefined) ? ("NA") : (obj.videoScreen);
+    s.contextData['tve.videostatus'] = (obj.videoStatus == undefined) ? ("NA") : (obj.videoStatus);
+    s.contextData['tve.playerurl'] = (obj.playerURL == undefined) ? ("NA") : (obj.playerURL);
+    s.contextData['tve.playername'] = (obj.playerName == undefined) ? ("NA") : (obj.playerName);
+    s.contextData['tve.length'] = (obj.duration == undefined) ? ("NA") : (obj.duration);
+    s.contextData['tve.initiate'] = (obj.initiate == undefined) ? ("NA") : (obj.initiate);
+    s.contextData['tve.additionalsections'] = (obj.additionalSectionContentFormattedFull == undefined) ? ("NA") : (obj.additionalSectionContentFormattedFull);
+    s.contextData['tve.creator'] = (obj.authorFormattedFull == undefined) ? ("NA") : (obj.authorFormattedFull);
+    s.contextData['tve.creatoroverwrite'] = (obj.creatorOverwriteFormatted == undefined) ? ("NA") : (obj.creatorOverwriteFormatted);
+		s.contextData['tve.team'] = (obj.projectTeamContentFormatted == undefined) ? ("NA") : (obj.projectTeamContentFormatted);
+		s.contextData['tve.project'] = (obj.projectContentFormatted == undefined) ? ("NA") : (obj.projectContentFormatted);
+		s.contextData['tve.source'] = (obj.sourceOrganizationFormatted == undefined) ? ("NA") : (obj.sourceOrganizationFormatted);
+		s.contextData['tve.usagerule'] = (obj.usageRule == undefined) ? ("NA") : (obj.usageRule);
+		s.contextData['tve.hierarchy'] = (obj.sectionHierarchyFormattedFull == undefined) ? ("NA") : (obj.sectionHierarchyFormattedFull);
+		s.contextData['tve.hier1'] = (obj.sectionHierarchy.length == 0) ? ("NA") : (obj.sectionHierarchy[0].tagNameFormattedFull);
+		s.contextData['tve.tags'] = (obj.relatedTagsFilteredFormatted == undefined) ? ("NA") : (obj.relatedTagsFilteredFormatted);
+    s.contextData['tve.pev2'] = (obj.pev2 == undefined) ? ("NA") : (obj.pev2);
+  }
+
+function clickPlayerLinkEvents(obj) {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    //linkTrkVars.push("contextData.tve.brand");
+    linkTrkVars.push("contextData.tve.platform");
+    linkTrkVars.push("contextData.cnbc.trknav");
+    linkTrkVars.push("contextData.tve.pev2");
+    //s.contextData['tve.brand'] = (obj.brand == undefined) ? ("NA") : (obj.brand);
+    s.contextData['tve.platform'] = "web";
+    s.contextData['cnbc.trknav'] = (obj.trkNav == undefined) ? ("NA") : (obj.trkNav);
+    s.contextData['tve.pev2'] = (obj.pev2 == undefined) ? ("NA") : (obj.pev2);
+
+    s.pe = 'lnk_o';
+    s.pev2 = obj.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  }
+
+var fnPlayerName_CNBC = fnPlayerName_CNBC || function(data) {
+  try {
+      mps.videoPlayerName = data;
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: PlayerName', data);
+}
+window.__EventBus__.remove("PlayerName", fnPlayerName_CNBC);
+window.__EventBus__.on("PlayerName", fnPlayerName_CNBC);
+
+var fnVideoAdStart_CNBC = fnVideoAdStart_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+    if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapteradstart");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapteradstart'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclipadstart");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclipadstart'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+  console.log('Omniture: VideoAdStart', this.value);
+}
+window.__EventBus__.remove("videoAdStart", fnVideoAdStart_CNBC);
+window.__EventBus__.on("videoAdStart", fnVideoAdStart_CNBC);
+
+var fnVideoAdPause_CNBC = fnVideoAdPause_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+    if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapteradpause");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapteradpause'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclipadpause");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclipadpause'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+  console.log('Omniture: VideoAdPause', this.value);
+}
+window.__EventBus__.remove("videoAdPause", fnVideoAdPause_CNBC);
+window.__EventBus__.on("videoAdPause", fnVideoAdPause_CNBC);
+
+var fnVideoAdComplete_CNBC = fnVideoAdComplete_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+    if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapteradend");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapteradend'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclipadend");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclipadend'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+  console.log('Omniture: videoAdComplete', this.value);
+}
+window.__EventBus__.remove("videoAdComplete", fnVideoAdComplete_CNBC);
+window.__EventBus__.on("videoAdComplete", fnVideoAdComplete_CNBC);
+
+var fnVideoStart_CNBC = fnVideoStart_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+    if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapterstartoverall");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapterstartoverall'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclipstart");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclipstart'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+  console.log('Omniture: VideoStart', this.value);
+}
+window.__EventBus__.remove("videoStart", fnVideoStart_CNBC);
+window.__EventBus__.on("videoStart", fnVideoStart_CNBC);
+
+var fnVideoPause_CNBC = fnVideoPause_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapterpause");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapterpause'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclippause");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclippause'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: VideoPause', this.value);
+}
+window.__EventBus__.remove("videoPause", fnVideoPause_CNBC);
+window.__EventBus__.on("videoPause", fnVideoPause_CNBC);
+
+var fnVideoComplete_CNBC = fnVideoComplete_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapterend");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapterend'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclipend");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclipend'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoComplete', this.value);
+}
+window.__EventBus__.remove("videoComplete", fnVideoComplete_CNBC);
+window.__EventBus__.on("videoComplete", fnVideoComplete_CNBC);
+
+var fnVideoSeek_CNBC = fnVideoSeek_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		if (data.transcript != undefined) {
+      //Chapter
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videochapterscrub");
+      s.contextData['tve.chapter'] = "true";
+      s.contextData['tve.videochapterscrub'] = "true";
+    } else {
+      //Clip
+      linkTrkVars.push("contextData.tve.chapter");
+      linkTrkVars.push("contextData.tve.videovodclipscrub");
+      s.contextData['tve.chapter'] = "NA";
+      s.contextData['tve.videovodclipscrub'] = "true";
+    }
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoSeek', this.value);
+}
+window.__EventBus__.remove("videoSeek", fnVideoSeek_CNBC);
+window.__EventBus__.on("videoSeek", fnVideoSeek_CNBC);
+
+var fnVideoClip25_CNBC = fnVideoClip25_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		linkTrkVars.push("contextData.tve.chapter");
+		linkTrkVars.push("contextData.tve.videovodclip25");
+		s.contextData['tve.chapter'] = "NA";
+		s.contextData['tve.videovodclip25'] = "true";
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoClip25', this.value);
+}
+window.__EventBus__.remove("videoClip25", fnVideoClip25_CNBC);
+window.__EventBus__.on("videoClip25", fnVideoClip25_CNBC);
+
+var fnVideoClip50_CNBC = fnVideoClip50_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		linkTrkVars.push("contextData.tve.chapter");
+		linkTrkVars.push("contextData.tve.videovodclip50");
+		s.contextData['tve.chapter'] = "NA";
+		s.contextData['tve.videovodclip50'] = "true";
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoClip50', this.value);
+}
+window.__EventBus__.remove("videoClip50", fnVideoClip50_CNBC);
+window.__EventBus__.on("videoClip50", fnVideoClip50_CNBC);
+
+var fnVideoClip75_CNBC = fnVideoClip75_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		linkTrkVars.push("contextData.tve.chapter");
+		linkTrkVars.push("contextData.tve.videovodclip75");
+		s.contextData['tve.chapter'] = "NA";
+		s.contextData['tve.videovodclip75'] = "true";
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoClip75', this.value);
+}
+window.__EventBus__.remove("videoClip75", fnVideoClip75_CNBC);
+window.__EventBus__.on("videoClip75", fnVideoClip75_CNBC);
+
+var fnVideo8SecondsWatched_CNBC = fnVideo8SecondsWatched_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		linkTrkVars.push("contextData.tve.chapter");
+		linkTrkVars.push("contextData.tve.videochapter8seconds");
+		s.contextData['tve.chapter'] = "true";
+		s.contextData['tve.videochapter8seconds'] = "true";
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: video8SecondsWatched', this.value);
+}
+window.__EventBus__.remove("video8SecondsWatched", fnVideo8SecondsWatched_CNBC);
+window.__EventBus__.on("video8SecondsWatched", fnVideo8SecondsWatched_CNBC);
+
+var fnVideo30SecondsWatched_CNBC = fnVideo30SecondsWatched_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		linkTrkVars.push("contextData.tve.chapter");
+		linkTrkVars.push("contextData.tve.videochapter30seconds");
+		s.contextData['tve.chapter'] = "true";
+		s.contextData['tve.videochapter30seconds'] = "true";
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: video30SecondsWatched', this.value);
+}
+window.__EventBus__.remove("video30SecondsWatched", fnVideo30SecondsWatched_CNBC);
+window.__EventBus__.on("video30SecondsWatched", fnVideo30SecondsWatched_CNBC);
+
+var fnVideoEveryMinuteWatched_CNBC = fnVideoEveryMinuteWatched_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    s.contextData = {};
+    var linkTrkVars = [];
+
+    populateDefaultMetrics(data, linkTrkVars);
+		linkTrkVars.push("contextData.tve.chapter");
+		linkTrkVars.push("contextData.tve.videochaptereveryminute");
+		s.contextData['tve.chapter'] = "true";
+		s.contextData['tve.videochaptereveryminute'] = "true";
+
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoEveryMinuteWatched', this.value);
+}
+window.__EventBus__.remove("videoEveryMinuteWatched", fnVideoEveryMinuteWatched_CNBC);
+window.__EventBus__.on("videoEveryMinuteWatched", fnVideoEveryMinuteWatched_CNBC);
+
+var fnVideoPlaybackRateChanged_CNBC = fnVideoPlaybackRateChanged_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoPlaybackRateChanged', this.value);
+}
+window.__EventBus__.remove("videoPlaybackRateChanged", fnVideoPlaybackRateChanged_CNBC);
+window.__EventBus__.on("videoPlaybackRateChanged", fnVideoPlaybackRateChanged_CNBC);
+
+var fnVideoReplay_CNBC = fnVideoReplay_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoReplay', this.value);
+}
+window.__EventBus__.remove("videoReplay", fnVideoReplay_CNBC);
+window.__EventBus__.on("videoReplay", fnVideoReplay_CNBC);
+
+var fnVideoFullScreen_CNBC = fnVideoFullScreen_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoFullScreen', this.value);
+}
+window.__EventBus__.remove("videoFullScreen", fnVideoFullScreen_CNBC);
+window.__EventBus__.on("videoFullScreen", fnVideoFullScreen_CNBC);
+
+var fnVideoDockedClose_CNBC = fnVideoDockedClose_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoDockedClose', this.value);
+}
+window.__EventBus__.remove("videoDockedClose", fnVideoDockedClose_CNBC);
+window.__EventBus__.on("videoDockedClose", fnVideoDockedClose_CNBC);
+
+var fnVideoDockedUndockicon_CNBC = fnVideoDockedUndockicon_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoDockedUndockicon', this.value);
+}
+window.__EventBus__.remove("videoDockedUndockicon", fnVideoDockedUndockicon_CNBC);
+window.__EventBus__.on("videoDockedUndockicon", fnVideoDockedUndockicon_CNBC);
+
+var fnVideoJumpBack_CNBC = fnVideoJumpBack_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoJumpBack', this.value);
+}
+window.__EventBus__.remove("videoJumpBack", fnVideoJumpBack_CNBC);
+window.__EventBus__.on("videoJumpBack", fnVideoJumpBack_CNBC);
+
+var fnVideoShare_CNBC = fnVideoShare_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoShare', this.value);
+}
+window.__EventBus__.remove("videoShare", fnVideoShare_CNBC);
+window.__EventBus__.on("videoShare", fnVideoShare_CNBC);
+
+var fnVideoEmbedClick_CNBC = fnVideoEmbedClick_CNBC || function(data) {
+console.log ('inside embed click');
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoEmbed', this.value);
+}
+window.__EventBus__.remove("videoEmbedClick", fnVideoEmbedClick_CNBC);
+window.__EventBus__.on("videoEmbedClick", fnVideoEmbedClick_CNBC);
+
+var fnVideoClosedCaption_CNBC = fnVideoClosedCaption_CNBC || function(data) {
+  try {
+      clickPlayerLinkEvents(data);
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoClosedCaption', this.value);
+}
+window.__EventBus__.remove("videoClosedCaption", fnVideoClosedCaption_CNBC);
+window.__EventBus__.on("videoClosedCaption", fnVideoClosedCaption_CNBC);
+
+var fnVideoProviderSharing_CNBC = fnVideoProviderSharing_CNBC || function(data) {
+  try {
+    s.manageVars("clearVars");
+    var linkTrkVars = [];
+    linkTrkVars.push("eVar14");
+    linkTrkVars.push("eVar15");
+    linkTrkVars.push("events");
+    linkTrkVars.push("prop55");
+    linkTrkVars.push("prop57");
+    linkTrkVars.push("contextData.tve.pev2");
+    s.eVar14 = data.eVar14;
+    s.eVar15 = data.eVar15;
+    s.events = data.events;
+    s.prop55 = data.prop55;
+    s.prop57 = data.prop57;
+    s.contextData['tve.pev2'] = (data.pev2 == undefined) ? ("NA") : (data.pev2);
+    s.pe = 'lnk_o';
+    s.pev2 = data.pev2;
+    s.linkTrackVars = linkTrkVars.join(',');
+    s.tl(true, 'o', s.pev2, null, 'navigate');
+    s.manageVars("clearVars");
+  } catch (e) {
+    console.log('Omniture: Video Event Analytics are not working ! Some external plugin might be blocking it !!');
+  }
+
+  console.log('Omniture: videoProviderSharing', this.value);
+}
+window.__EventBus__.remove("videoProviderSharing", fnVideoProviderSharing_CNBC);
+window.__EventBus__.on("videoProviderSharing", fnVideoProviderSharing_CNBC);
+
+console.log('**** LOADED: Omniture: Video Event Tracking');
