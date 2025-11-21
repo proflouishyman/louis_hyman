@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ page.title }} | {{ site.title }}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav container">
+      <div class="brand"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></div>
+      <div class="nav-links">
+        {% for item in site.data.navigation %}
+          <a class="{% if page.url == item.url %}active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title }}</a>
+        {% endfor %}
+      </div>
+    </nav>
+  </header>
+
+  <main class="page-content">{{ content }}</main>
+
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div>
+        <p class="eyebrow">Historian of work & business</p>
+        <p class="footer-text">{{ site.title }} writes and speaks about the forces that built the modern economy—from debt and consumer activism to the rise of the gig economy.</p>
+      </div>
+      <div class="footer-links">
+        <a href="{{ '/old_files/' | relative_url }}">Archive of the original site</a>
+        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+      </div>
+    </div>
+    <p class="footer-meta">© 2024 {{ site.title }}.</p>
+  </footer>
+</body>
+</html>
