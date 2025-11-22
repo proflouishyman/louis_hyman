@@ -3,38 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{{ page.title }} | {{ site.title }}</title>
+  <title>{% if page.title %}{{ page.title }} | {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ site.description }}">
+  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav container">
-      <div class="brand"><a href="{{ '/' | relative_url }}">{{ site.title }}</a></div>
+  <nav class="nav">
+    <div class="nav-container">
+      <a href="{{ '/' | relative_url }}" class="nav-logo">Louis Hyman</a>
       <div class="nav-links">
-        {% for item in site.data.navigation %}
-          <a class="{% if page.url == item.url %}active{% endif %}" href="{{ item.url | relative_url }}">{{ item.title }}</a>
-        {% endfor %}
-      </div>
-    </nav>
-  </header>
-
-  <main class="page-content">{{ content }}</main>
-
-  <footer class="footer">
-    <div class="container footer-grid">
-      <div>
-        <p class="eyebrow">Historian of work & business</p>
-        <p class="footer-text">{{ site.title }} writes and speaks about the forces that built the modern economy—from debt and consumer activism to the rise of the gig economy.</p>
-      </div>
-      <div class="footer-links">
-        <a href="{{ '/old_files/' | relative_url }}">Archive of the original site</a>
-        <a href="mailto:{{ site.email }}">{{ site.email }}</a>
+        <a href="{{ '/books/' | relative_url }}" {% if page.url contains '/books' %}class="active"{% endif %}>Books</a>
+        <a href="{{ '/essays/' | relative_url }}" {% if page.url contains '/essays' %}class="active"{% endif %}>Essays</a>
+        <a href="{{ '/talks/' | relative_url }}" {% if page.url contains '/talks' %}class="active"{% endif %}>Talks</a>
+        <a href="{{ '/podcasts/' | relative_url }}" {% if page.url contains '/podcasts' %}class="active"{% endif %}>Podcasts</a>
+        <a href="{{ '/about/' | relative_url }}" {% if page.url contains '/about' %}class="active"{% endif %}>About</a>
+        <a href="{{ '/contact/' | relative_url }}" class="nav-cta" {% if page.url contains '/contact' %}class="active"{% endif %}>Contact</a>
       </div>
     </div>
-    <p class="footer-meta">© 2024 {{ site.title }}.</p>
+  </nav>
+
+  <main>
+    {{ content }}
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <p>&copy; {{ 'now' | date: "%Y" }} Louis Hyman. All rights reserved.</p>
+      <p class="footer-links">
+        <a href="mailto:{{ site.email }}">Email</a>
+        <span class="divider">•</span>
+        <a href="{{ '/old_files/' | relative_url }}">Archive</a>
+      </p>
+    </div>
   </footer>
 </body>
 </html>
