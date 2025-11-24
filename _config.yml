@@ -7,5 +7,5 @@ description: "Historian of work, business, and capitalism"
 email: lhyman@gmail.com
 permalink: pretty
 markdown: kramdown
-theme: slate
+theme: jekyll-theme-slate
 collections: []
